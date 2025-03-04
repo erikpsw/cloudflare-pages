@@ -1,34 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [ipInfo, setIpInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // 获取IP信息
+  useEffect(() => {
+    const fetchIpInfo = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        if (!response.ok) {
+          throw new Error('无法获取IP信息');
+        }
+        const data = await response.json();
+        setIpInfo(data);
+      } catch (err) {
+        console.error('获取IP信息出错:', err);
+        setError('无法获取IP信息');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchIpInfo();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="ip-content">
+      {loading ? (
+        <p className="loading">正在加载IP信息...</p>
+      ) : error ? (
+        <p className="error">{error}</p>
+      ) : ipInfo ? (
+        <div className="ip-details">
+          <p><strong>IP地址</strong> {ipInfo.ip}</p>
+          <p><strong>城市</strong> {ipInfo.city || '未知'}</p>
+          <p><strong>地区</strong> {ipInfo.region || '未知'}</p>
+          <p><strong>国家</strong> {ipInfo.country_name || '未知'}</p>
+          <p><strong>网络服务提供商</strong> {ipInfo.org || '未知'}</p>
+          <p><strong>纬度</strong> {ipInfo.latitude || '未知'}</p>
+          <p><strong>经度</strong> {ipInfo.longitude || '未知'}</p>
+        </div>
+      ) : (
+        <p>没有可用的IP信息</p>
+      )}
+    </div>
   )
 }
 
