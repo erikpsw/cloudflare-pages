@@ -1,0 +1,15 @@
+# WebSocketsServer Library Error Fix
+
+You're encountering a compilation error in the WebSockets library. This is a common issue with newer versions of the ESP8266 core and the WebSockets library. Let me explain the problem and provide two solutions.
+
+## The Problem
+
+The error occurs because in newer versions of the ESP8266 core, the WiFiServer class changed its method name from `accept()` to `_accept()`, but the WebSocketsServer library is still trying to use the old method name.
+
+## Solution 1: Use an Older Version of the WebSockets Library
+
+1. In Arduino IDE, go to Tools > Manage Libraries
+2. Find "WebSockets" by Markus Sattler
+3. Click on the dropdown menu that shows the version number
+4. Select version 2.3.5 instead of the latest version
+5. Click Install/Update

@@ -1,0 +1,199 @@
+.dashboard {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.sensor-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sensor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.sensor-card h3 {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #4a69bd;
+  text-align: center;
+}
+
+.sensor-values {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.sensor-value {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.sensor-value.temp {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.axis {
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+.x-axis {
+  color: #4a69bd;
+}
+
+.y-axis {
+  color: #6ab04c;
+}
+
+.z-axis {
+  color: #eb3b5a;
+}
+
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.chart {
+  background: white;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.connection-panel {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+}
+
+.connection-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.connection-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.connect-button, .disconnect-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+  color: white;
+}
+
+.connect-button {
+  background-color: #4a69bd;
+}
+
+.connect-button:hover {
+  background-color: #3c5aa9;
+}
+
+.connect-button.connecting {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.disconnect-button {
+  background-color: #e53e3e;
+}
+
+.disconnect-button:hover {
+  background-color: #c53030;
+}
+
+.connection-error {
+  color: #e53e3e;
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+.connection-status {
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.status-connected {
+  color: #48bb78;
+  font-weight: 600;
+}
+
+.status-disconnected {
+  color: #a0aec0;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 深色主题 */
+.dark-mode .dashboard-title {
+  color: #e2e8f0;
+}
+
+.dark-mode .sensor-card {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+.dark-mode .sensor-card h3 {
+  color: #63b3ed;
+}
+
+.dark-mode .chart {
+  background: #2d3748;
+}
+
+.dark-mode .connection-panel {
+  background: #2d3748;
+}
+
+.dark-mode .connection-form input {
+  background: #1a202c;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+.dark-mode .connection-status {
+  color: #e2e8f0;
+}

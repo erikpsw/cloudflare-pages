@@ -48,7 +48,8 @@
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-color: #f5f7fa;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 header {
@@ -212,20 +213,20 @@ header h1 {
 }
 
 footer {
-  background-color: #4a69bd;
-  background-image: linear-gradient(to right, #4a69bd, #0c2461);
-  color: white;
+  background-color: white;
+  color: #4a5568;
   text-align: center;
-  padding: 1.5rem;
+  padding: 1.2rem;
   margin-top: auto;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 footer p {
   margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 /* 动画效果 */
@@ -264,6 +265,10 @@ footer p {
   header h1 {
     font-size: 2rem;
   }
+
+  .main-content {
+    padding: 0.5rem 0;
+  }
 }
 
 /* 深色模式 */
@@ -298,4 +303,21 @@ footer p {
   .ip-details strong {
     color: #63b3ed;
   }
+}
+
+.app-container.dark-mode {
+  background-color: #121212;
+  color: #e2e8f0;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1rem 0;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.dark-mode footer {
+  background-color: #1a202c;
+  color: #e2e8f0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
 }
