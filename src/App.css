@@ -343,6 +343,9 @@ footer p {
   border-radius: 8px;
   display: inline-block;  /* 添加这行使宽度随内容自适应 */
   max-width: 70%;        /* 限制最大宽度 */
+  position: relative;
+  padding-bottom: 40px; /* Add space for the copy button */
+  margin-bottom: 35px; /* Space for copy button below */
 }
 
 .message.user {
@@ -482,15 +485,36 @@ footer p {
   padding: 5px 10px;
   border-radius: 4px;
 }
-
 .copy-message {
   position: absolute;
   right: 10px;
-  top: 10px;
+  bottom: 40px; /* Changed from 30px to 40px to move it down by 1em */
+  top: auto; /* Remove top positioning */
   padding: 4px 8px;
   border-radius: 4px;
   opacity: 0;
   transition: opacity 0.2s;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  /* cursor: pointer; */
+}
+
+.copy-message-container {
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  width: 100%;
+  text-align: right;
+}
+
+.copy-message:hover {
+  background-color: #e0e0e0;
+}
+
+.copy-message.success {
+  background-color: #4caf50;
+  color: white;
+  border-color: #43a047;
 }
 
 .message:hover .copy-message {
