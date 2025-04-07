@@ -55,8 +55,15 @@ function ChatBot() {
               streamedContent += '</div>';
               continue;
             }
+            
+            if (isThinking) {
+              streamedContent += content;
+            } else {
+              streamedContent += content;
+            }
+          } else {
+            streamedContent += content;
           }
-          streamedContent += content;
           
           setMessages(prev => [
             ...prev.slice(0, -1),
@@ -155,22 +162,5 @@ function ChatBot() {
     </div>
   );
 }
-
-// Add these styles to your CSS
-const styles = `
-.thinking-box {
-  background-color: #f5f5f5;
-  border-left: 3px solid #666;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-.thinking-header {
-  font-weight: bold;
-  color: #666;
-  margin-bottom: 5px;
-}
-`;
 
 export default ChatBot;
