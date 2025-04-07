@@ -11,7 +11,22 @@ function ChatBot() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('deepseek');
+  const [selectedModel, setSelectedModel] = useState('deepseek/deepseek-chat');
+  const [copySuccess, setCopySuccess] = useState(null);
+
+  const handleClear = () => {
+    setMessages([]);
+  };
+
+  const handleCopy = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopySuccess(text);
+      setTimeout(() => setCopySuccess(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +41,8 @@ function ChatBot() {
       var openai = new OpenAI({
         apiKey: import.meta.env.VITE_GEMINI_API_KEY || '',
         baseURL: selectedModel === 'gemini' ? 'https://gemini.erikpsw.works' : 'https://deepseek.erikpsw.works',
-        dangerouslyAllowBrowser: true  // Add this line
+        
+        dangerouslyAllowBrowser: true
       });
       
       const stream = await openai.chat.completions.create({
@@ -90,9 +106,18 @@ function ChatBot() {
           onChange={(e) => setSelectedModel(e.target.value)}
           disabled={isLoading}
         >
-          <option value="deepseek">DeepSeek</option>
+          <option value="deepseek/deepseek-chat">DeepSeek Chat</option>
+          <option value="deepseek/deepseek-r1">DeepSeek R1</option>
+          <option value="qwen/qwen-max">Qwen Max</option>
           <option value="gemini">Gemini</option>
         </select>
+        <button 
+          onClick={handleClear} 
+          disabled={isLoading || messages.length === 0}
+          className="clear-button"
+        >
+          清除对话
+        </button>
       </div>
       <div className="messages-container">
         {messages.map((msg, index) => (
@@ -123,10 +148,10 @@ function ChatBot() {
                     return (
                       <div className="code-block-wrapper">
                         <button 
-                          className="copy-button"
-                          onClick={() => navigator.clipboard.writeText(code)}
+                          className={`copy-button ${copySuccess === code ? 'success' : ''}`}
+                          onClick={() => handleCopy(code)}
                         >
-                          复制
+                          {copySuccess === code ? '✓' : '复制'}
                         </button>
                         <SyntaxHighlighter
                           style={vscDarkPlus}
@@ -145,6 +170,12 @@ function ChatBot() {
             >
               {msg.content}
             </ReactMarkdown>
+            <button 
+              className={`copy-message ${copySuccess === msg.content ? 'success' : ''}`}
+              onClick={() => handleCopy(msg.content)}
+            >
+              {copySuccess === msg.content ? '✓' : '复制'}
+            </button>
           </div>
         ))}
         {isLoading && <div className="message assistant">思考中...</div>}
