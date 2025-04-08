@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import '../styles/ChatBot.css'
+
 
 function ChatBot() {
   const [messages, setMessages] = useState([]);
@@ -52,12 +52,13 @@ function ChatBot() {
       });
 
       let streamedContent = '';
+      let isThinking = false;
       setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
       for await (const chunk of stream) {
         if (chunk.choices[0]?.delta?.content) {
           const content = chunk.choices[0].delta.content;
-          // console.log('Received chunk:', content);
+          console.log('Received chunk:', content);
           
           if (selectedModel === 'deepseek/deepseek-r1') {
             const trimmedContent = content.trim();
@@ -104,7 +105,7 @@ function ChatBot() {
           <option value="qwen/qwen-max">Qwen Max</option>
           <option value="gemini">Gemini</option>
         </select>
-        <button
+        <button 
           onClick={handleClear} 
           disabled={isLoading || messages.length === 0}
           className="clear-button"
@@ -123,6 +124,7 @@ function ChatBot() {
                   if (className === 'thinking-box') {
                     return (
                       <div className="thinking-box">
+                        <div className="thinking-line"></div>
                         <div className="thinking-content">
                           <div className="thinking-header">思考过程</div>
                           {children}

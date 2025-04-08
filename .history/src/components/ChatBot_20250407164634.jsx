@@ -5,7 +5,11 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import 'katex/dist/katex.min.css';
+import { InlineMath, BlockMath } from 'react-katex';
 import '../styles/ChatBot.css'
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 function ChatBot() {
   const [messages, setMessages] = useState([]);
@@ -52,12 +56,13 @@ function ChatBot() {
       });
 
       let streamedContent = '';
+      let isThinking = false;
       setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
       for await (const chunk of stream) {
         if (chunk.choices[0]?.delta?.content) {
           const content = chunk.choices[0].delta.content;
-          // console.log('Received chunk:', content);
+          console.log('Received chunk:', content);
           
           if (selectedModel === 'deepseek/deepseek-r1') {
             const trimmedContent = content.trim();
@@ -104,7 +109,7 @@ function ChatBot() {
           <option value="qwen/qwen-max">Qwen Max</option>
           <option value="gemini">Gemini</option>
         </select>
-        <button
+        <button 
           onClick={handleClear} 
           disabled={isLoading || messages.length === 0}
           className="clear-button"
@@ -116,8 +121,8 @@ function ChatBot() {
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.role}`}>
             <ReactMarkdown 
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw]}
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[rehypeRaw, rehypeKatex]}
               components={{
                 div: ({node, className, children, ...props}) => {
                   if (className === 'thinking-box') {
@@ -160,7 +165,9 @@ function ChatBot() {
                     );
                   }
                   return <code className={className} {...props}>{children}</code>;
-                }
+                },
+                math: ({value}) => <BlockMath math={value} />,
+                inlineMath: ({value}) => <InlineMath math={value} />
               }}
             >
               {msg.content}

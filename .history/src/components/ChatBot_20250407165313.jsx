@@ -52,6 +52,7 @@ function ChatBot() {
       });
 
       let streamedContent = '';
+      let isThinking = false;
       setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
       for await (const chunk of stream) {
@@ -104,7 +105,7 @@ function ChatBot() {
           <option value="qwen/qwen-max">Qwen Max</option>
           <option value="gemini">Gemini</option>
         </select>
-        <button
+        <button 
           onClick={handleClear} 
           disabled={isLoading || messages.length === 0}
           className="clear-button"

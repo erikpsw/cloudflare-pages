@@ -52,12 +52,13 @@ function ChatBot() {
       });
 
       let streamedContent = '';
+      let isThinking = false;
       setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
       for await (const chunk of stream) {
         if (chunk.choices[0]?.delta?.content) {
           const content = chunk.choices[0].delta.content;
-          // console.log('Received chunk:', content);
+          console.log('Received chunk:', content);
           
           if (selectedModel === 'deepseek/deepseek-r1') {
             const trimmedContent = content.trim();
@@ -104,7 +105,7 @@ function ChatBot() {
           <option value="qwen/qwen-max">Qwen Max</option>
           <option value="gemini">Gemini</option>
         </select>
-        <button
+        <button 
           onClick={handleClear} 
           disabled={isLoading || messages.length === 0}
           className="clear-button"
