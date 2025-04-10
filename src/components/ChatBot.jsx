@@ -41,7 +41,6 @@ function ChatBot() {
       var openai = new OpenAI({
         apiKey: import.meta.env.VITE_GEMINI_API_KEY || '',
         baseURL: selectedModel === 'gemini' ? 'https://gemini.erikpsw.works' : 'https://deepseek.erikpsw.works',
-        
         dangerouslyAllowBrowser: true
       });
       
@@ -57,17 +56,15 @@ function ChatBot() {
       for await (const chunk of stream) {
         if (chunk.choices[0]?.delta?.content) {
           const content = chunk.choices[0].delta.content;
-          // console.log('Received chunk:', content);
+          console.log('Received chunk:', content);
           
           if (selectedModel === 'deepseek/deepseek-r1') {
             const trimmedContent = content.trim();
             if (trimmedContent === '<think>') {
-              isThinking = true;
               streamedContent += '<div class="thinking-box">';
               continue;
             }
             if (trimmedContent === '</think>') {
-              isThinking = false;
               streamedContent += '</div>';
               continue;
             }
