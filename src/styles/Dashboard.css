@@ -197,3 +197,190 @@
 .dark-mode .connection-status {
   color: #e2e8f0;
 }
+
+.motor-control-panel {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+}
+
+.motor-control-panel h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #4a69bd;
+}
+
+.motor-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.motor-controls-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.control-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #4a69bd;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control-button:hover:not(:disabled) {
+  background-color: #3c5aa9;
+  transform: translateY(-2px);
+}
+
+.control-button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.control-button.stop {
+  background-color: #e53e3e;
+}
+
+.control-button.stop:hover:not(:disabled) {
+  background-color: #c53030;
+}
+
+.motor-speeds {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.dark-mode .motor-control-panel {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+.dark-mode .motor-control-panel h3 {
+  color: #63b3ed;
+}
+
+.charts-toggle-button {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  background-color: #4a69bd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.charts-toggle-button:hover {
+  background-color: #3c559c;
+}
+
+.speed-control {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.speed-control input[type="range"] {
+  width: 100%;
+  max-width: 300px;
+}
+
+.speed-control label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Switch Control */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4a69bd;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.chart-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chart-control label {
+  font-size: 1rem;
+  color: #2d3748;
+}
+
+.chart-control.center {
+  justify-content: center;
+  margin: 1.5rem auto;
+  max-width: 300px;
+}
+
+.speed-controls {
+  display: flex;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+
+.speed-control {
+  flex: 1;
+}
+
+.speed-value {
+  text-align: center;
+  font-weight: bold;
+  color: #4a69bd;
+  margin-top: 0.5rem;
+}
