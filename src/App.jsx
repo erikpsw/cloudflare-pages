@@ -22,7 +22,6 @@ function App() {
         <Routes>
           <Route path="/" element={<CameraView />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/chatbot" element={<ChatBot />} />
           <Route path="/ip-info" element={<IPInfo />} />
         </Routes>
       </main>

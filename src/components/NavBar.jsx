@@ -21,9 +21,6 @@ function NavBar({ darkMode, toggleDarkMode }) {
           <Link to="/ip-info" className={location.pathname === '/ip-info' ? 'active' : ''}>
             IP信息
           </Link>
-          <Link to="/chatbot" className={location.pathname === '/chatbot' ? 'active' : ''}>
-            AI助手
-          </Link>
         </div>
         
         <button 
